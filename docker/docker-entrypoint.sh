@@ -93,8 +93,8 @@ if [[ $ENABLE_WEB_PANEL == true ]]; then
         export PS1="\u@\h:\w $ "
 		## 复制ttyd
         if [[ $is_termux -eq 1 ]] && type ! ttyd >/dev/null 2>&1; then
-          pkg update
-          pkg install ttyd
+          npm update
+          npm install ttyd
         elif [ ! -f /usr/local/bin/ttyd ]; then
           cp -f "$dir_panel/ttyd/ttyd.$(uname -m)" /usr/local/bin/ttyd
           ttyd_status=$?
