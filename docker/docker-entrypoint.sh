@@ -5,6 +5,7 @@ dir_config="$JD_DIR/config"
 dir_sample="$JD_DIR/sample"
 dir_own="$JD_DIR/own"
 dir_log="$JD_DIR/log"
+dir_panel="$dir_root/panel"
 
 file_crontab_sample="$dir_sample/crontab.sample.list"
 file_crontab_user="$dir_config/crontab.list"
