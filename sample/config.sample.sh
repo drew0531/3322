@@ -33,9 +33,7 @@ export CK_AUTO_ADD="true"
 ## 其他变量详见：https://gitee.com/lxk0301/jd_docker/blob/master/githubAction.md
 ## 该链接中除JD_COOKIE、JD_BEAN_SIGN_STOP_NOTIFY、JD_BEAN_SIGN_NOTIFY_SIMPLE、UN_SUBSCRIBES这四个变量以及所有互助码类变量外，其他所有变量请在本区域自行补充
 
-################################## 主JS库设定（选填） ##################################
-## 由于近期JS库变化较大，您可以手动更换本工具预先内置的库地址。
-## 部分文件的改动可以考虑用第三方库功能进行替换即可。
+################################## 主库设定（选填） ##################################
 ## 值为空表示使用默认地址
 ## 比如JD_SCRIPTS_URL="https://gitee.com/abc/jdtsa.git"库的地址
 ## JD_SCRIPTS_BRANCH="master"库的分支，此项也需填写。
