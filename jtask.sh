@@ -157,13 +157,13 @@ find_file_and_path () {
             which_path=$path
             break
         elif [ -f $path/$file_name_tmp3.py ]; then
-            file_name=$file_name_tmp4
-            file_name_all=$file_name_tmp4.$file_last
+            file_name=$file_name_tmp3
+            file_name_all=$file_name_tmp3.$file_last
             which_path=$path
             break
         elif [ -f $path/$file_name_tmp4.ts ]; then
-            file_name=$file_name_tmp5
-            file_name_all=$file_name_tmp5.$file_last
+            file_name=$file_name_tmp4
+            file_name_all=$file_name_tmp4.$file_last
             which_path=$path
             break
         fi
