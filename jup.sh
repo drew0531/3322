@@ -181,6 +181,14 @@ update_docker_entrypoint () {
     fi
 }
 
+## 更新bot.py，docker专用
+update_bot_py() {
+    if [[ $JD_DIR ]] && [[ $ENABLE_TG_BOT == true ]] && [ -f $dir_config/bot.py ] && [[ $(diff $dir_root/bot/bot.py $dir_config/bot.py) ]]; then
+        cp -f $dir_root/bot/bot.py $dir_config/bot.py
+    fi
+}
+
+
 ## 检测配置文件版本
 detect_config_version () {
     ## 识别出两个文件的版本号
