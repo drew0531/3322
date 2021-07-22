@@ -274,6 +274,7 @@ run_normal () {
         log_path="$dir_log/$file_name/$log_time.log"
         make_dir "$dir_log/$file_name"
         cd $which_path
+        [[ $which_program = node ]] && [[ $IsSecure = true ]] && echo "Secure Js" #&& SecureJs $file_name_all
         $which_program $file_name_all 2>&1 | tee $log_path
     else
         echo -e "\n $p 脚本不存在，请确认...\n"
