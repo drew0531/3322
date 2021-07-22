@@ -141,7 +141,6 @@ find_file_and_path () {
     local para=$1
     local file_name_tmp1=$(echo $para | perl -pe "s|\.js||")
     local file_name_tmp2=$(echo $para | perl -pe "{s|jd_||; s|\.js||; s|^|jd_|}")
-    local file_name_tmp3=$(echo $para | perl -pe "{s|jd_||; s|\.js||; s|^|jd_|}")
     local file_name_tmp4=$(echo $para | perl -pe "s|\.py||")
     local file_name_tmp5=$(echo $para | perl -pe "s|\.ts||")
     local seek_path="$dir_scripts $dir_scripts/backUp"
