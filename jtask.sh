@@ -141,6 +141,8 @@ find_file_and_path () {
     local para=$1
     local file_name_tmp1=$(echo $para | perl -pe "s|\.js||")
     local file_name_tmp2=$(echo $para | perl -pe "{s|jd_||; s|\.js||; s|^|jd_|}")
+    local file_name_tmp3=$(echo $para | perl -pe "s|\.py||")
+    local file_name_tmp4=$(echo $para | perl -pe "s|\.ts||")
     local seek_path="$dir_scripts $dir_scripts/backUp"
     file_name=""
     which_path=""
@@ -152,6 +154,16 @@ find_file_and_path () {
             break
         elif [ -f $path/$file_name_tmp2.js ]; then
             file_name=$file_name_tmp2
+            which_path=$path
+            break
+        elif [ -f $path/$file_name_tmp3.py ]; then
+            file_name=$file_name_tmp4
+            file_name_all=$file_name_tmp4.$file_last
+            which_path=$path
+            break
+        elif [ -f $path/$file_name_tmp4.ts ]; then
+            file_name=$file_name_tmp5
+            file_name_all=$file_name_tmp5.$file_last
             which_path=$path
             break
         fi
@@ -217,6 +229,27 @@ run_all_jd_scripts () {
         echo -e "==================== 运行 $file.js 脚本 ====================\n"
         $cmd_jtask $file now
     done
+}
+
+## 选择python3还是node
+define_program() {
+    local p1=$1
+    if [[ $p1 == *.js ]]; then
+        which_program=node
+        file_last=js
+    elif [[ $p1 == *.py ]]; then
+        which_program=python3
+        file_last=py
+    elif [[ $p1 == *.sh ]]; then
+        which_program=bash
+        file_last=sh
+    elif [[ $p1 == *.ts ]]; then
+        which_program="ts-node-transpile-only"
+        file_last=ts
+    else
+        which_program=node
+        file_last=js
+    fi
 }
 
 ## 正常运行单个脚本，$1：传入参数
