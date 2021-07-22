@@ -130,6 +130,28 @@ usage () {
     done
 }
 
+## 选择python3还是node
+define_program() {
+    local p1=$1
+    if [[ $p1 == *.js ]]; then
+        which_program=node
+        file_last=js
+    elif [[ $p1 == *.py ]]; then
+        which_program=python3
+        file_last=py
+    elif [[ $p1 == *.sh ]]; then
+        which_program=bash
+        file_last=sh
+    elif [[ $p1 == *.ts ]]; then
+        which_program="ts-node-transpile-only"
+        file_last=ts
+    else
+        which_program=node
+        file_last=js
+    fi
+}
+
+
 ## run nohup，$1：文件名，不含路径，带后缀
 run_nohup () {
     local file_name=$1
@@ -185,26 +207,6 @@ find_file_and_path () {
     fi
 }
 
-## 选择python3还是node
-define_program() {
-    local p1=$1
-    if [[ $p1 == *.js ]]; then
-        which_program=node
-        file_last=js
-    elif [[ $p1 == *.py ]]; then
-        which_program=python3
-        file_last=py
-    elif [[ $p1 == *.sh ]]; then
-        which_program=bash
-        file_last=sh
-    elif [[ $p1 == *.ts ]]; then
-        which_program="ts-node-transpile-only"
-        file_last=ts
-    else
-        which_program=node
-        file_last=js
-    fi
-}
 
 ## 运行挂机脚本
 run_hungup () {
