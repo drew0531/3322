@@ -70,7 +70,7 @@ trans_UN_SUBSCRIBES () {
 export_all_env () {
     local type=$1
     local latest_log
-    if [[ $AutoHelpOther == true ]] && [[ -d $dir_code ]]; then
+    if [[ $AutoHelpOther == true ]] && [[ $(ls $dir_code) ]]; then
         latest_log=$(ls -r $dir_code | head -1)
         . $dir_code/$latest_log
     fi
@@ -130,28 +130,6 @@ usage () {
     done
 }
 
-## 选择python3还是node
-define_program() {
-    local p1=$1
-    if [[ $p1 == *.js ]]; then
-        which_program=node
-        file_last=js
-    elif [[ $p1 == *.py ]]; then
-        which_program=python3
-        file_last=py
-    elif [[ $p1 == *.sh ]]; then
-        which_program=bash
-        file_last=sh
-    elif [[ $p1 == *.ts ]]; then
-        which_program="ts-node-transpile-only"
-        file_last=ts
-    else
-        which_program=node
-        file_last=js
-    fi
-}
-
-
 ## run nohup，$1：文件名，不含路径，带后缀
 run_nohup () {
     local file_name=$1
@@ -163,9 +141,6 @@ find_file_and_path () {
     local para=$1
     local file_name_tmp1=$(echo $para | perl -pe "s|\.js||")
     local file_name_tmp2=$(echo $para | perl -pe "{s|jd_||; s|\.js||; s|^|jd_|}")
-    local file_name_tmp3=$(echo $para | perl -pe "{s|jd_||; s|\.js||; s|^|jd_|}")
-    local file_name_tmp4=$(echo $para | perl -pe "s|\.py||")
-    local file_name_tmp5=$(echo $para | perl -pe "s|\.ts||")
     local seek_path="$dir_scripts $dir_scripts/backUp"
     file_name=""
     which_path=""
@@ -173,22 +148,11 @@ find_file_and_path () {
     for path in $seek_path; do
         if [ -f $path/$file_name_tmp1.js ]; then
             file_name=$file_name_tmp1
-            file_name_all=$file_name_tmp1.js
             which_path=$path
             break
         elif [ -f $path/$file_name_tmp2.js ]; then
             file_name=$file_name_tmp2
-            file_name_all=$file_name_tmp2.js
             which_path=$path
-            break
-        elif [ -f $path/$file_name_tmp4.py ]; then
-            file_name=$file_name_tmp4
-            file_name_all=$file_name_tmp4.py
-            which_path=$path
-            break
-        elif [ -f $path/$file_name_tmp5.ts ]; then
-            file_name=$file_name_tmp5
-            file_name_all=$file_name_tmp5.ts
             break
         fi
     done
@@ -202,11 +166,9 @@ find_file_and_path () {
             cp -f $para $dir_scripts
         fi
         file_name=$file_name_tmp3
-        file_name_all=$file_name_tmp3.$file_last
         which_path=$dir_scripts
     fi
 }
-
 
 ## 运行挂机脚本
 run_hungup () {
@@ -257,8 +219,6 @@ run_all_jd_scripts () {
     done
 }
 
-
-
 ## 正常运行单个脚本，$1：传入参数
 run_normal () {
     local p=$1
@@ -274,8 +234,7 @@ run_normal () {
         log_path="$dir_log/$file_name/$log_time.log"
         make_dir "$dir_log/$file_name"
         cd $which_path
-        [[ $which_program = node ]] && [[ $IsSecure = true ]] && echo "Secure Js" #&& SecureJs $file_name_all
-        $which_program $file_name_all 2>&1 | tee $log_path
+        node $file_name.js 2>&1 | tee $log_path
     else
         echo -e "\n $p 脚本不存在，请确认...\n"
         usage
@@ -302,7 +261,7 @@ run_concurrent () {
             export_all_env $user_num
             log_path="$dir_log/$file_name/${log_time}_${user_num}.log"
             cd $which_path
-            $which_program $file_name_all &>$log_path &
+            node $file_name.js &>$log_path &
         done
     else
         echo -e "\n $p 脚本不存在，请确认...\n"
