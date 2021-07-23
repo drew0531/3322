@@ -70,7 +70,7 @@ trans_UN_SUBSCRIBES () {
 export_all_env () {
     local type=$1
     local latest_log
-    if [[ $AutoHelpOther == true ]] && [[ $(ls $dir_code) ]]; then
+    if [[ $AutoHelpOther == true ]] && [[ $(-d $dir_code) ]]; then
         latest_log=$(ls -r $dir_code | head -1)
         . $dir_code/$latest_log
     fi
