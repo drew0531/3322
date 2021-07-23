@@ -173,23 +173,22 @@ find_file_and_path () {
     for path in $seek_path; do
         if [ -f $path/$file_name_tmp1.js ]; then
             file_name=$file_name_tmp1
-            file_name_all=$file_name_tmp1.$file_last
+            file_name_all=$file_name_tmp1.js
             which_path=$path
             break
         elif [ -f $path/$file_name_tmp2.js ]; then
             file_name=$file_name_tmp2
-            file_name_all=$file_name_tmp2.$file_last
+            file_name_all=$file_name_tmp2.js
             which_path=$path
             break
         elif [ -f $path/$file_name_tmp4.py ]; then
             file_name=$file_name_tmp4
-            file_name_all=$file_name_tmp4.$file_last
+            file_name_all=$file_name_tmp4.py
             which_path=$path
             break
         elif [ -f $path/$file_name_tmp5.ts ]; then
             file_name=$file_name_tmp5
-            file_name_all=$file_name_tmp5.$file_last
-            which_path=$path
+            file_name_all=$file_name_tmp5.ts
             break
         fi
     done
